@@ -5,10 +5,19 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Plus, Trash2, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+
+const CURRENCIES = [
+  { value: "USD", label: "Dollar", symbol: "$" },
+  { value: "EUR", label: "Euro", symbol: "€" },
+  { value: "GBP", label: "Pound", symbol: "£" },
+  { value: "NGN", label: "Naira", symbol: "₦" },
+  { value: "GHS", label: "Cedi", symbol: "₵" }
+];
 
 interface InvoiceItem {
   id: string;
@@ -25,6 +34,7 @@ interface InvoiceData {
   discountPercent: number;
   paymentInfo: string;
   logo: string;
+  currency: string;
 }
 
 export default function InvoiceGenerator() {
@@ -38,7 +48,8 @@ export default function InvoiceGenerator() {
     taxPercent: 0,
     discountPercent: 0,
     paymentInfo: "",
-    logo: ""
+    logo: "",
+    currency: "USD"
   });
 
   useEffect(() => {
@@ -95,6 +106,8 @@ export default function InvoiceGenerator() {
     }
   };
 
+  const currencySymbol = CURRENCIES.find(c => c.value === formData.currency)?.symbol || "$";
+  
   const subtotal = formData.items.reduce((sum, item) => sum + (item.quantity * item.unitPrice), 0);
   const taxAmount = (subtotal * formData.taxPercent) / 100;
   const discountAmount = (subtotal * formData.discountPercent) / 100;
@@ -181,6 +194,25 @@ export default function InvoiceGenerator() {
                 </div>
 
                 <div>
+                  <Label htmlFor="currency">Currency</Label>
+                  <Select
+                    value={formData.currency}
+                    onValueChange={(value) => updateField("currency", value)}
+                  >
+                    <SelectTrigger id="currency" data-testid="select-currency">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {CURRENCIES.map((curr) => (
+                        <SelectItem key={curr.value} value={curr.value}>
+                          {curr.symbol} - {curr.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
                   <Label htmlFor="logo">Logo (Optional)</Label>
                   <Input
                     id="logo"
@@ -241,7 +273,7 @@ export default function InvoiceGenerator() {
                         />
                       </div>
                       <div>
-                        <Label>Unit Price ($)</Label>
+                        <Label>Unit Price ({currencySymbol})</Label>
                         <Input
                           type="number"
                           min="0"
@@ -343,8 +375,8 @@ export default function InvoiceGenerator() {
                         <tr key={item.id} className="border-b">
                           <td className="py-2 text-sm">{item.description || "-"}</td>
                           <td className="text-right py-2 text-sm">{item.quantity}</td>
-                          <td className="text-right py-2 text-sm">${item.unitPrice.toFixed(2)}</td>
-                          <td className="text-right py-2 text-sm">${(item.quantity * item.unitPrice).toFixed(2)}</td>
+                          <td className="text-right py-2 text-sm">{currencySymbol}{item.unitPrice.toFixed(2)}</td>
+                          <td className="text-right py-2 text-sm">{currencySymbol}{(item.quantity * item.unitPrice).toFixed(2)}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -354,23 +386,23 @@ export default function InvoiceGenerator() {
                 <div className="space-y-2 border-t pt-4">
                   <div className="flex justify-between text-sm">
                     <span>Subtotal:</span>
-                    <span data-testid="text-subtotal">${subtotal.toFixed(2)}</span>
+                    <span data-testid="text-subtotal">{currencySymbol}{subtotal.toFixed(2)}</span>
                   </div>
                   {formData.taxPercent > 0 && (
                     <div className="flex justify-between text-sm">
                       <span>Tax ({formData.taxPercent}%):</span>
-                      <span data-testid="text-tax">${taxAmount.toFixed(2)}</span>
+                      <span data-testid="text-tax">{currencySymbol}{taxAmount.toFixed(2)}</span>
                     </div>
                   )}
                   {formData.discountPercent > 0 && (
                     <div className="flex justify-between text-sm">
                       <span>Discount ({formData.discountPercent}%):</span>
-                      <span data-testid="text-discount">-${discountAmount.toFixed(2)}</span>
+                      <span data-testid="text-discount">-{currencySymbol}{discountAmount.toFixed(2)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-lg font-bold border-t pt-2">
                     <span>Total:</span>
-                    <span data-testid="text-total">${total.toFixed(2)}</span>
+                    <span data-testid="text-total">{currencySymbol}{total.toFixed(2)}</span>
                   </div>
                 </div>
 

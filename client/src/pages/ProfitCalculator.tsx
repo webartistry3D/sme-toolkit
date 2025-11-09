@@ -4,19 +4,30 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, TrendingUp } from "lucide-react";
+
+const CURRENCIES = [
+  { value: "USD", label: "Dollar", symbol: "$" },
+  { value: "EUR", label: "Euro", symbol: "€" },
+  { value: "GBP", label: "Pound", symbol: "£" },
+  { value: "NGN", label: "Naira", symbol: "₦" },
+  { value: "GHS", label: "Cedi", symbol: "₵" }
+];
 
 interface CalculatorData {
   cost: number;
   sellingPrice: number;
   expenses: number;
+  currency: string;
 }
 
 export default function ProfitCalculator() {
   const [formData, setFormData] = useState<CalculatorData>({
     cost: 0,
     sellingPrice: 0,
-    expenses: 0
+    expenses: 0,
+    currency: "USD"
   });
 
   useEffect(() => {
@@ -30,17 +41,19 @@ export default function ProfitCalculator() {
     }
   }, []);
 
-  const updateField = <K extends keyof CalculatorData>(field: K, value: number) => {
+  const updateField = <K extends keyof CalculatorData>(field: K, value: CalculatorData[K]) => {
     const newData = { ...formData, [field]: value };
     setFormData(newData);
     localStorage.setItem("profitCalculatorData", JSON.stringify(newData));
   };
 
   const clearAll = () => {
-    const emptyData = { cost: 0, sellingPrice: 0, expenses: 0 };
+    const emptyData = { cost: 0, sellingPrice: 0, expenses: 0, currency: formData.currency };
     setFormData(emptyData);
     localStorage.setItem("profitCalculatorData", JSON.stringify(emptyData));
   };
+
+  const currencySymbol = CURRENCIES.find(c => c.value === formData.currency)?.symbol || "$";
 
   const profit = formData.sellingPrice - formData.cost - formData.expenses;
   const profitMargin = formData.sellingPrice > 0 
@@ -77,7 +90,26 @@ export default function ProfitCalculator() {
               
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="cost">Product Cost ($)</Label>
+                  <Label htmlFor="currency">Currency</Label>
+                  <Select
+                    value={formData.currency}
+                    onValueChange={(value) => updateField("currency", value)}
+                  >
+                    <SelectTrigger id="currency" data-testid="select-currency">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {CURRENCIES.map((curr) => (
+                        <SelectItem key={curr.value} value={curr.value}>
+                          {curr.symbol} - {curr.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="cost">Product Cost ({currencySymbol})</Label>
                   <Input
                     id="cost"
                     type="number"
@@ -94,7 +126,7 @@ export default function ProfitCalculator() {
                 </div>
 
                 <div>
-                  <Label htmlFor="sellingPrice">Selling Price ($)</Label>
+                  <Label htmlFor="sellingPrice">Selling Price ({currencySymbol})</Label>
                   <Input
                     id="sellingPrice"
                     type="number"
@@ -111,7 +143,7 @@ export default function ProfitCalculator() {
                 </div>
 
                 <div>
-                  <Label htmlFor="expenses">Additional Expenses ($)</Label>
+                  <Label htmlFor="expenses">Additional Expenses ({currencySymbol})</Label>
                   <Input
                     id="expenses"
                     type="number"
@@ -166,7 +198,7 @@ export default function ProfitCalculator() {
                         className={`text-4xl font-bold ${isProfitable ? 'text-green-600' : 'text-red-600'}`}
                         data-testid="text-profit"
                       >
-                        ${profit.toFixed(2)}
+                        {currencySymbol}{profit.toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -185,7 +217,7 @@ export default function ProfitCalculator() {
                     <div className="border rounded-lg p-4">
                       <p className="text-sm text-muted-foreground mb-1">Total Costs</p>
                       <p className="text-2xl font-bold" data-testid="text-total-costs">
-                        ${(formData.cost + formData.expenses).toFixed(2)}
+                        {currencySymbol}{(formData.cost + formData.expenses).toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -193,15 +225,15 @@ export default function ProfitCalculator() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm py-2 border-b">
                       <span className="text-muted-foreground">Product Cost:</span>
-                      <span className="font-medium">${formData.cost.toFixed(2)}</span>
+                      <span className="font-medium">{currencySymbol}{formData.cost.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm py-2 border-b">
                       <span className="text-muted-foreground">Additional Expenses:</span>
-                      <span className="font-medium">${formData.expenses.toFixed(2)}</span>
+                      <span className="font-medium">{currencySymbol}{formData.expenses.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm py-2 border-b">
                       <span className="text-muted-foreground">Selling Price:</span>
-                      <span className="font-medium">${formData.sellingPrice.toFixed(2)}</span>
+                      <span className="font-medium">{currencySymbol}{formData.sellingPrice.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
@@ -226,7 +258,7 @@ export default function ProfitCalculator() {
                       <p className="text-xs text-muted-foreground">Industry standard</p>
                     </div>
                     <p className="text-lg font-bold" data-testid="text-suggested-30">
-                      ${suggestedPrice30.toFixed(2)}
+                      {currencySymbol}{suggestedPrice30.toFixed(2)}
                     </p>
                   </div>
 
@@ -236,7 +268,7 @@ export default function ProfitCalculator() {
                       <p className="text-xs text-muted-foreground">Good profit</p>
                     </div>
                     <p className="text-lg font-bold" data-testid="text-suggested-40">
-                      ${suggestedPrice40.toFixed(2)}
+                      {currencySymbol}{suggestedPrice40.toFixed(2)}
                     </p>
                   </div>
 
@@ -246,7 +278,7 @@ export default function ProfitCalculator() {
                       <p className="text-xs text-muted-foreground">Premium pricing</p>
                     </div>
                     <p className="text-lg font-bold" data-testid="text-suggested-50">
-                      ${suggestedPrice50.toFixed(2)}
+                      {currencySymbol}{suggestedPrice50.toFixed(2)}
                     </p>
                   </div>
                 </div>
