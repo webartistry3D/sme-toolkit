@@ -109,7 +109,7 @@ export default function Home() {
                     <div className="text-6xl">{tool.emoji}</div>
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{tool.title}</h2>
                     <p className="text-sm text-muted-foreground dark:text-gray-300">{tool.description}</p>
-                    <Button variant="default" className="mt-4">
+                    <Button variant="default" className="mt-4 bg-[#6E63F1]">
                       Open Tool →
                     </Button>
                   </div>
