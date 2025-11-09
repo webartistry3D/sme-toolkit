@@ -4,6 +4,9 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, MessageSquare, Calculator, Sun, Moon } from "lucide-react";
 import { motion } from "framer-motion";
+import { Twitter, Facebook, Linkedin, Instagram, Github, Mail } from "lucide-react"; // add at the top with other imports
+
+
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -137,10 +140,32 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gray-200 dark:bg-gray-800 py-8 mt-16">
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 text-center space-y-4 text-gray-700 dark:text-gray-300">
-          <p>© {new Date().getFullYear()} SMETools. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} SMETools. Powered by WebArtistry Creations®.
+            <br />
+            All rights reserved.
+          </p>
+
+          {/* Social Links */}
           <div className="flex justify-center space-x-4">
-            <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="mailto:contact@smetools.com">Contact</a>
+            <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 dark:hover:text-white">
+              <Github className="h-5 w-5 inline-block mr-1" /> GitHub
+            </a>
+            <a href="mailto:contact@smetools.com" className="hover:text-gray-900 dark:hover:text-white">
+              <Mail className="h-5 w-5 inline-block mr-1" /> Contact
+            </a>
+            <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 dark:hover:text-white">
+              <Twitter className="h-5 w-5 inline-block" />
+            </a>
+            <a href="https://facebook.com/yourpage" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 dark:hover:text-white">
+              <Facebook className="h-5 w-5 inline-block" />
+            </a>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 dark:hover:text-white">
+              <Linkedin className="h-5 w-5 inline-block" />
+            </a>
+            <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 dark:hover:text-white">
+              <Instagram className="h-5 w-5 inline-block" />
+            </a>
           </div>
         </div>
       </footer>
