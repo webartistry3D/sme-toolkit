@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import InvoiceGenerator from "@/pages/InvoiceGenerator";
 import WhatsAppBuilder from "@/pages/WhatsAppBuilder";
 import ProfitCalculator from "@/pages/ProfitCalculator";
+import SpendBreakdownCalculator from "@/pages/SpendBreakdownCalculator";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/invoice-generator" component={InvoiceGenerator} />
       <Route path="/whatsapp-builder" component={WhatsAppBuilder} />
       <Route path="/profit-calculator" component={ProfitCalculator} />
+      <Route path="/spend-breakdown" component={SpendBreakdownCalculator} />
       <Route component={NotFound} />
     </Switch>
   );

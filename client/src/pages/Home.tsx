@@ -29,6 +29,14 @@ export default function Home() {
       description: "Calculate profit margins and get suggested pricing recommendations",
       path: "/profit-calculator",
       testId: "card-profit-calculator"
+    },
+    {
+      icon: Calculator,
+      emoji: "💸",
+      title: "Spend Breakdown Calculator",
+      description: "Break down invoice amounts into spending categories automatically",
+      path: "/spend-breakdown",
+      testId: "card-spend-breakdown"
     }
   ];
 

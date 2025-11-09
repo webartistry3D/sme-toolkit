@@ -30,6 +30,11 @@ export default function ProfitCalculator() {
     currency: "USD"
   });
 
+  // ✅ Always scroll to top on page load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   useEffect(() => {
     const saved = localStorage.getItem("profitCalculatorData");
     if (saved) {

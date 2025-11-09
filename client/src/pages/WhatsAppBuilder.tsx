@@ -17,6 +17,11 @@ export default function WhatsAppBuilder() {
   const [message, setMessage] = useState("");
   const [copied, setCopied] = useState(false);
 
+  // ✅ Always scroll to top on page load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   useEffect(() => {
     const saved = localStorage.getItem("whatsappData");
     if (saved) {
