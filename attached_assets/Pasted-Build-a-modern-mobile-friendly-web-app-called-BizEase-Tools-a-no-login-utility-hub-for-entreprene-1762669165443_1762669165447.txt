@@ -1,0 +1,97 @@
+Build a modern, mobile-friendly web app called BizEase Tools — a no-login utility hub for entrepreneurs and small business owners.
+
+The app should be built with React + TailwindCSS and deployed as a single-page app. It will include three simple tools, each fully client-side (no backend or database).
+
+Main requirements:
+
+1. Landing Page (Dashboard)
+
+Header with logo/title “BizEase Tools” and a short tagline (“Smart tools for everyday business tasks”).
+
+Three cards leading to the tools:
+
+Invoice Generator 🧾
+
+WhatsApp Link & QR Builder 💬
+
+Profit Calculator 📊
+
+
+Use a responsive grid layout, rounded cards, icons, and subtle motion.
+
+
+
+2. Tool #1: Invoice Generator
+
+Form fields: business name, client name, item list (description, qty, unit price), tax %, discount %, payment info (bank details), and optional logo upload.
+
+Calculate subtotal, tax, discount, and total.
+
+Button to “Generate PDF” using jspdf or html2canvas.
+
+Optional: Save last used data in localStorage.
+
+
+
+3. Tool #2: WhatsApp Link & QR Builder
+
+Inputs: phone number, message text.
+
+Output: generated WhatsApp link (https://wa.me/<number>?text=<encoded-message>).
+
+Display and copy link button.
+
+Generate QR code using qrcode.react.
+
+Button to download QR as image.
+
+
+
+4. Tool #3: Profit Calculator
+
+Inputs: product cost, selling price, expenses (optional).
+
+Output: profit, profit margin %, and suggested selling price.
+
+Clear and recalculate buttons.
+
+LocalStorage support to remember last values.
+
+
+
+
+Design guidelines:
+
+Use a clean, minimal business aesthetic (neutral background, accent color for CTAs).
+
+Include smooth card hover animations (via Framer Motion if available).
+
+Fully responsive (mobile-first).
+
+
+Technical notes:
+
+Pure frontend — no backend, database, or login.
+
+Deployable on Render, Netlify, or Vercel.
+
+Use React Router for simple navigation between tools.
+
+
+Stretch goal (if time allows):
+
+Add a “Share this tool” button that copies the tool URL.
+
+Make the app installable as a PWA (manifest + service worker).
+
+
+Generate clean, modular code with clear folder structure:
+
+src/
+├── components/
+├── pages/
+├── utils/
+├── assets/
+└── App.jsx
+
+Deliver a working prototype ready to preview and refine.
