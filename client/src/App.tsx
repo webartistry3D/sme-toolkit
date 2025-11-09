@@ -3,14 +3,19 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Home from "@/pages/Home";
+import InvoiceGenerator from "@/pages/InvoiceGenerator";
+import WhatsAppBuilder from "@/pages/WhatsAppBuilder";
+import ProfitCalculator from "@/pages/ProfitCalculator";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
-      {/* Add pages below */}
-      {/* <Route path="/" component={Home}/> */}
-      {/* Fallback to 404 */}
+      <Route path="/" component={Home} />
+      <Route path="/invoice-generator" component={InvoiceGenerator} />
+      <Route path="/whatsapp-builder" component={WhatsAppBuilder} />
+      <Route path="/profit-calculator" component={ProfitCalculator} />
       <Route component={NotFound} />
     </Switch>
   );
