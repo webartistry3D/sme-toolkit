@@ -5,4 +5,4 @@ import { registerServiceWorker } from "./registerSW";
 
 createRoot(document.getElementById("root")!).render(<App />);
 
-registerServiceWorker();
+//registerServiceWorker();
