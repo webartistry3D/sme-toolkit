@@ -23,7 +23,7 @@ export default function Home() {
     {
       icon: Calendar,
       emoji: "📅",
-      title: "Smart Social Scheduler",
+      title: "Content for Social Media",
       description: "Generate a 7-day content ideas + Caption post for Instagram, Facebook & Tiktok",
       path: "/social-scheduler",
       testId: "card-social-scheduler"
@@ -47,7 +47,7 @@ export default function Home() {
     {
       icon: Calculator,
       emoji: "💸",
-      title: "Spend Breakdown Calculator",
+      title: "Spend Breakdown",
       description: "Break down invoice amounts into spending categories automatically",
       path: "/spend-breakdown",
       testId: "card-spend-breakdown"
@@ -63,7 +63,7 @@ export default function Home() {
     {
       icon: Calendar,         // Use an appropriate icon like Calendar from lucide-react
       emoji: "📅",
-      title: "Customer Booking Scheduler",
+      title: "Client Bookings",
       description: "Manage appointments efficiently with time slots, reminders, and PDF export",
       path: "/booking-scheduler",
       testId: "card-booking-scheduler"
@@ -174,10 +174,10 @@ export default function Home() {
           {/* Social Links */}
           <div className="flex justify-center space-x-4">
             <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 dark:hover:text-white">
-              <Github className="h-5 w-5 inline-block mr-1" /> GitHub
+              <Github className="h-5 w-5 inline-block mr-1" />
             </a>
             <a href="mailto:contact@smetools.com" className="hover:text-gray-900 dark:hover:text-white">
-              <Mail className="h-5 w-5 inline-block mr-1" /> Contact
+              <Mail className="h-5 w-5 inline-block mr-1" />
             </a>
             <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 dark:hover:text-white">
               <Twitter className="h-5 w-5 inline-block" />
