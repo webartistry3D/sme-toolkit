@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, MessageSquare, Calculator, Sun, Moon } from "lucide-react";
+import { FileText, MessageSquare, Calculator, Sun, Moon, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import { Twitter, Facebook, Linkedin, Instagram, Github, Mail } from "lucide-react"; // add at the top with other imports
 
@@ -19,6 +19,14 @@ export default function Home() {
       description: "Create professional invoices with automatic calculations and PDF export",
       path: "/invoice-generator",
       testId: "card-invoice-generator"
+    },
+    {
+      icon: Calendar,
+      emoji: "📅",
+      title: "Smart Social Scheduler",
+      description: "Generate a 7-day content ideas + Caption post for Instagram, Facebook & Tiktok",
+      path: "/social-scheduler",
+      testId: "card-social-scheduler"
     },
     {
       icon: MessageSquare,
@@ -43,7 +51,24 @@ export default function Home() {
       description: "Break down invoice amounts into spending categories automatically",
       path: "/spend-breakdown",
       testId: "card-spend-breakdown"
+    },
+    {
+      icon: Calculator,                    
+      emoji: "🚚",                          
+      title: "Delivery Fee Estimator",    
+      description: "Quickly calculate shipping & logistics fees based on zones and weight", 
+      path: "/delivery-estimator",      
+      testId: "card-delivery-estimator"  
+    },
+    {
+      icon: Calendar,         // Use an appropriate icon like Calendar from lucide-react
+      emoji: "📅",
+      title: "Customer Booking Scheduler",
+      description: "Manage appointments efficiently with time slots, reminders, and PDF export",
+      path: "/booking-scheduler",
+      testId: "card-booking-scheduler"
     }
+
   ];
 
   const features = [
