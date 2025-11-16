@@ -4,9 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, MessageSquare, Calculator, Sun, Moon, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
-import { Twitter, Facebook, Linkedin, Instagram, Github, Mail } from "lucide-react"; // add at the top with other imports
-
-
+import { Twitter, Facebook, Linkedin, Instagram, Github, Mail } from "lucide-react";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -18,15 +16,17 @@ export default function Home() {
       title: "Invoice Generator",
       description: "Create professional invoices with automatic calculations and PDF export",
       path: "/invoice-generator",
-      testId: "card-invoice-generator"
+      testId: "card-invoice-generator",
+      isNew: true
     },
     {
       icon: Calendar,
       emoji: "📅",
       title: "Content for Social Media",
-      description: "Generate a 7-day content ideas + Caption post for Instagram, Facebook & Tiktok",
+      description: "Generate a 2-week content calendar (ideas + captions) for Instagram, Facebook & Tiktok",
       path: "/social-scheduler",
-      testId: "card-social-scheduler"
+      testId: "card-social-scheduler",
+      isNew: false
     },
     {
       icon: MessageSquare,
@@ -34,7 +34,8 @@ export default function Home() {
       title: "WhatsApp Link & QR Builder",
       description: "Generate WhatsApp links and QR codes for instant messaging",
       path: "/whatsapp-builder",
-      testId: "card-whatsapp-builder"
+      testId: "card-whatsapp-builder",
+      isNew: false
     },
     {
       icon: Calculator,
@@ -42,7 +43,8 @@ export default function Home() {
       title: "Profit Calculator",
       description: "Calculate profit margins and get suggested pricing recommendations",
       path: "/profit-calculator",
-      testId: "card-profit-calculator"
+      testId: "card-profit-calculator",
+      isNew: false
     },
     {
       icon: Calculator,
@@ -50,25 +52,27 @@ export default function Home() {
       title: "Spend Breakdown",
       description: "Break down invoice amounts into spending categories automatically",
       path: "/spend-breakdown",
-      testId: "card-spend-breakdown"
+      testId: "card-spend-breakdown",
+      isNew: false
     },
     {
-      icon: Calculator,                    
-      emoji: "🚚",                          
-      title: "Delivery Fee Estimator",    
-      description: "Quickly calculate shipping & logistics fees based on zones and weight", 
-      path: "/delivery-estimator",      
-      testId: "card-delivery-estimator"  
+      icon: Calculator,
+      emoji: "🚚",
+      title: "Delivery Fee Estimator",
+      description: "Quickly calculate shipping & logistics fees based on zones and weight",
+      path: "/delivery-estimator",
+      testId: "card-delivery-estimator",
+      isNew: true
     },
     {
-      icon: Calendar,         // Use an appropriate icon like Calendar from lucide-react
+      icon: Calendar,
       emoji: "📅",
       title: "Client Bookings",
       description: "Manage appointments efficiently with time slots, reminders, and PDF export",
       path: "/booking-scheduler",
-      testId: "card-booking-scheduler"
+      testId: "card-booking-scheduler",
+      isNew: true
     }
-
   ];
 
   const features = [
@@ -128,15 +132,32 @@ export default function Home() {
               transition={{ duration: 0.4, delay: index * 0.15 }}
             >
               <Link href={tool.path}>
-                <Card className="p-8 cursor-pointer h-full transform transition duration-300 hover:scale-105 hover:shadow-2xl
+                <Card className="relative p-8 cursor-pointer h-full transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-300/50
                                 bg-white dark:bg-gray-800">
                   <div className="flex flex-col items-center text-center space-y-4">
-                    <div className="text-6xl">{tool.emoji}</div>
+                    <motion.div
+                      className="text-6xl"
+                      whileHover={{ y: [-2, -8, 0] }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {tool.emoji}
+                    </motion.div>
+
+                    {/* NEW badge */}
+                    {tool.isNew && (
+                      <div className="absolute -top-2 -right-2 bg-indigo-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold animate-pulse">
+                        NEW
+                      </div>
+                    )}
+
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{tool.title}</h2>
                     <p className="text-sm text-muted-foreground dark:text-gray-300">{tool.description}</p>
-                    <Button variant="default" className="mt-4 bg-[#6E63F1]">
-                      Open Tool →
-                    </Button>
+
+                    <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
+                      <Button variant="default" className="mt-4 bg-[#6E63F1]">
+                        Open Tool →
+                      </Button>
+                    </motion.div>
                   </div>
                 </Card>
               </Link>
@@ -151,8 +172,11 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Why Choose SMETools?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((f) => (
-              <Card key={f.title} className="p-6 transform transition hover:scale-105
-                                            bg-white dark:bg-gray-800">
+              <Card
+                key={f.title}
+                className="p-6 transform transition hover:scale-105 hover:shadow-lg hover:shadow-purple-300/50
+                                            bg-white dark:bg-gray-800"
+              >
                 <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{f.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">{f.desc}</p>
               </Card>
@@ -160,7 +184,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
 
       {/* Footer */}
       <footer className="bg-gray-200 dark:bg-gray-800 py-8 mt-16">
